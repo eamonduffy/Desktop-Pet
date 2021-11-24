@@ -1,5 +1,5 @@
 # Desktop-Pet
-Created a desktop pet which walks around your screen
+Created a desktop pet which walks along your taskbar
 
 [![Image from Gyazo](https://i.gyazo.com/727cd1551202a1c9dae2ec742a8dba94.gif)](https://gyazo.com/727cd1551202a1c9dae2ec742a8dba94)
 
