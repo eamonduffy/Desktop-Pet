@@ -1,6 +1,8 @@
 # Desktop-Pet
 Created a desktop pet which walks around your screen
 
+[![Image from Gyazo](https://i.gyazo.com/727cd1551202a1c9dae2ec742a8dba94.gif)](https://gyazo.com/727cd1551202a1c9dae2ec742a8dba94)
+
 ## How to Run
 Download [DesktopPet.exe](https://github.com/eamonduffy/Desktop-Pet/blob/main/dist/DesktopPet.exe) and run this executable. 
 
