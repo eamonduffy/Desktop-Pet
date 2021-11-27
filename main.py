@@ -1,8 +1,24 @@
 # import pyautogui
 import random
 import tkinter as tk
+import ctypes
+import sys
+from PyQt5.QtWidgets import QApplication
+from pywin32 import GetMonitorInfo, MonitorFromPoint
+import pypiwin32
 
-x = 1400
+# take a look at this when you get back home ==> https://stackoverflow.com/questions/4357258/how-to-get-the-height-of-windows-taskbar-using-python-pyqt-win32
+
+# get screen resolution
+user32 = ctypes.windll.user32
+screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+# print(screensize[1])
+
+# diana's surface is 1440 x 960
+
+x = (int)(screensize[0]/4)
+print(x)
+y = 31 # screen height (resolution) - task bar height
 cycle = 0
 check = 1
 idle_num =[1,2,3,4]
@@ -10,7 +26,7 @@ sleep_num = [10,11,12,13,15]
 walk_left = [6,7]
 walk_right = [8,9]
 event_number = random.randrange(1,3,1)
-impath = 'C:\\Users\\eamon\\workspace\\desktop-cat\\gifs\\'
+impath = 'C:\\Users\\dapoz\\Documents\\workspace\\Desktop-Pet\\gifs\\' # need to make this dynamic 
 
 #transfer random no. to event
 def event(cycle,check,event_number,x):
@@ -61,12 +77,12 @@ def update(cycle,check,event_number,x):
   elif check == 4:
     frame = walk_positive[cycle]
     cycle , event_number = gif_work(cycle,walk_positive,event_number,1,9)
-    x -= 3 # walk towards right
+    x += 3 # walk towards right
   elif check == 5:
     frame = walk_negative[cycle]
     cycle , event_number = gif_work(cycle,walk_negative,event_number,1,9)
-    x -= -3
-  window.geometry('48x48+'+str(x)+'+1000')
+    x += -3
+  window.geometry('48x48-'+str(x)+'-'+str(y)) # was 1000 for my pc but need to change this to be more dynamic
   label.configure(image=frame)
   window.after(1,event,cycle,check,event_number,x)
  
