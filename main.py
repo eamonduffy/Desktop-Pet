@@ -1,24 +1,39 @@
 # import pyautogui
 import random
 import tkinter as tk
-import ctypes
+# import ctypes
+from ctypes import windll, wintypes, byref
 import sys
-from PyQt5.QtWidgets import QApplication
-from pywin32 import GetMonitorInfo, MonitorFromPoint
-import pypiwin32
+# import pypiwin32
+# from win32api import GetMonitorInfo, MonitorFromPoint
+# from PyQt5.QtWidgets import QApplication
+# from pywin32 import GetMonitorInfo, MonitorFromPoint
 
 # take a look at this when you get back home ==> https://stackoverflow.com/questions/4357258/how-to-get-the-height-of-windows-taskbar-using-python-pyqt-win32
 
 # get screen resolution
-user32 = ctypes.windll.user32
-screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+def get_screen_resolution():
+  user32 = windll.user32
+  screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+  return screensize
 # print(screensize[1])
 
-# diana's surface is 1440 x 960
+# get taskbar height:
+SPI_GETWORKAREA = 48
+SM_CYSCREEN = 1
+def get_taskbar_size():
+    SystemParametersInfo = windll.user32.SystemParametersInfoA
+    work_area = wintypes.RECT()
+    if (SystemParametersInfo(SPI_GETWORKAREA, 0, byref(work_area), 0)):
+        GetSystemMetrics = windll.user32.GetSystemMetrics
+        return GetSystemMetrics(SM_CYSCREEN) - work_area.bottom
 
-x = (int)(screensize[0]/4)
-print(x)
-y = 31 # screen height (resolution) - task bar height
+print('taskbar size : ')
+print(get_taskbar_size())
+
+x = (int)(get_screen_resolution()[0]/4)
+print(get_screen_resolution()[1])
+y = (int)(get_screen_resolution()[1] - (get_taskbar_size()*2))
 cycle = 0
 check = 1
 idle_num =[1,2,3,4]
@@ -26,7 +41,7 @@ sleep_num = [10,11,12,13,15]
 walk_left = [6,7]
 walk_right = [8,9]
 event_number = random.randrange(1,3,1)
-impath = 'C:\\Users\\dapoz\\Documents\\workspace\\Desktop-Pet\\gifs\\' # need to make this dynamic 
+impath = 'gifs\\' # need to make this dynamic 
 
 #transfer random no. to event
 def event(cycle,check,event_number,x):
@@ -82,7 +97,7 @@ def update(cycle,check,event_number,x):
     frame = walk_negative[cycle]
     cycle , event_number = gif_work(cycle,walk_negative,event_number,1,9)
     x += -3
-  window.geometry('48x48-'+str(x)+'-'+str(y)) # was 1000 for my pc but need to change this to be more dynamic
+  window.geometry('48x48-'+str(x)+'+'+str(y)) # was 1000 for my pc but need to change this to be more dynamic
   label.configure(image=frame)
   window.after(1,event,cycle,check,event_number,x)
  
