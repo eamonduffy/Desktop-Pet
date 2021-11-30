@@ -1,15 +1,8 @@
 # import pyautogui
 import random
 import tkinter as tk
-# import ctypes
 from ctypes import windll, wintypes, byref
-import sys
-# import pypiwin32
-# from win32api import GetMonitorInfo, MonitorFromPoint
-# from PyQt5.QtWidgets import QApplication
-# from pywin32 import GetMonitorInfo, MonitorFromPoint
-
-# take a look at this when you get back home ==> https://stackoverflow.com/questions/4357258/how-to-get-the-height-of-windows-taskbar-using-python-pyqt-win32
+import base64
 
 # get screen resolution
 def get_screen_resolution():
@@ -28,11 +21,8 @@ def get_taskbar_size():
         GetSystemMetrics = windll.user32.GetSystemMetrics
         return GetSystemMetrics(SM_CYSCREEN) - work_area.bottom
 
-print('taskbar size : ')
-print(get_taskbar_size())
 
 x = (int)(get_screen_resolution()[0]/4)
-print(get_screen_resolution()[1])
 y = (int)(get_screen_resolution()[1] - (get_taskbar_size()*2))
 cycle = 0
 check = 1
@@ -41,7 +31,7 @@ sleep_num = [10,11,12,13,15]
 walk_left = [6,7]
 walk_right = [8,9]
 event_number = random.randrange(1,3,1)
-impath = 'gifs\\' # need to make this dynamic 
+impath = 'edit your path here'
 
 #transfer random no. to event
 def event(cycle,check,event_number,x):
